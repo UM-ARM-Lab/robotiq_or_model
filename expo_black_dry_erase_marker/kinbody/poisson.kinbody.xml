@@ -1,0 +1,8 @@
+<KinBody name="expo_black_dry_erase_marker">
+  <Body type="static" name="expo_black_dry_erase_marker">
+    <Geom type="trimesh">
+      <Render>../meshes/poisson_mesh.stl</Render>
+      <Data>../meshes/poisson_mesh.stl</Data>
+    </Geom>
+  </Body>
+</KinBody>
