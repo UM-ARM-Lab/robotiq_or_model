@@ -13,13 +13,13 @@
       <data>models/ROBOTIQ_S/finger-base.iv 1</data>
       <Render>models/ROBOTIQ_S/finger-base.iv 1</Render>
     </Geom>
-	<Geom type="trimesh" modifiable="false">
+	  <Geom type="trimesh" modifiable="false">
       <Translation>-4.0  4.4  -0.55</Translation>
       <RotationMat>1 0 0 0 1 0 0 0 1</RotationMat>
       <data>models/ROBOTIQ_S/finger-base.iv 1</data>
       <Render>models/ROBOTIQ_S/finger-base.iv 1</Render>
     </Geom>
-	<Geom type="trimesh" modifiable="false">
+	  <Geom type="trimesh" modifiable="false">
       <Translation>15.5  4.4  8.35</Translation>
       <RotationMat>-1 0 0 0 1 0 0 0 -1 </RotationMat>
       <data>models/ROBOTIQ_S/finger-base.iv 1</data>
@@ -69,8 +69,8 @@
     </mass>
   </Body>
   
-  <Joint name="JF1" type="hinge">
-    <Body>Finger0-1</Body>
+  <Joint name="JF0-0" type="hinge">
+    <Body>Finger0-0</Body>
     <Body>handbase</Body>
     <offsetfrom>handbase</offsetfrom>
     <weight>0.03846</weight>
@@ -101,30 +101,32 @@
     </mass>
   </Body>
   
-  
-  <Joint name="JF2" type="hinge" enable="false">
+  <!-- enable = "false" -->
+  <Joint name="JF0-1" type="hinge" enable = "true">
+    <Body>Finger0-1</Body>
     <Body>Finger0-0</Body>
-	<Body>Finger0-1</Body>
-	<offsetfrom>Finger0-0</offsetfrom>
-	<weight>3.846</weight>
-	<!--<anchor>0.4 11.6 9</anchor>-->
+	
+	  <offsetfrom>Finger0-0</offsetfrom>
+	  <weight>3.846</weight>
+    <!-- anchor was commented out -->
+	  <anchor>3.85014 7.03423 3.64595</anchor> 
 
-	<limitsdeg>90 0</limitsdeg>
+	  <limitsdeg>90 0</limitsdeg>
     <maxvel>2</maxvel>
     <resolution>2</resolution>
     <maxtorque>5.2</maxtorque>
   </Joint>
   
 
-  <Joint name="JF3" type="hinge" enable="false">
+  <Joint name="JF0-2" type="hinge" enable="true">
     <Body>Finger0-1</Body>
-	<Body>Finger0-2</Body>
-	<offsetfrom>Finger0-1</offsetfrom>
-	<weight>0.03846</weight>
-	<anchor>0.4 11.6 9</anchor>
-	<axis>0 0 1</axis>
+	  <Body>Finger0-2</Body>
+	  <offsetfrom>Finger0-0</offsetfrom>
+	  <weight>0.03846</weight>
+	  <anchor>2.45742 9.8237 3.6435 </anchor>
+	  <axis>0 0 1</axis>
 
-	<limitsdeg>-90 90</limitsdeg>
+	  <limitsdeg>-90 90</limitsdeg>
     <maxvel>2</maxvel>
     <resolution>2</resolution>
     <maxtorque>2</maxtorque>
@@ -166,8 +168,8 @@
     </mass>
   </Body>
   
-  <Joint name="JF4" type="hinge">
-    <Body>Finger1-1</Body>
+  <Joint name="JF1-0" type="hinge" enable = "false">
+    <Body>Finger1-0</Body>
     <Body>handbase</Body>
     <offsetfrom>handbase</offsetfrom>
     <weight>0.03846</weight>
@@ -199,7 +201,7 @@
   </Body>
   
   
-  <Joint name="JF5" type="hinge" enable="false">
+  <Joint name="JF1-1" type="hinge" enable="false">
     <Body>Finger1-0</Body>
 	<Body>Finger1-1</Body>
 	<offsetfrom>Finger1-0</offsetfrom>
@@ -212,7 +214,7 @@
     <maxtorque>5.2</maxtorque>
   </Joint>
   
-  <Joint name="JF6" type="hinge" enable="false">
+  <Joint name="JF1-2" type="hinge" enable="false">
     <Body>Finger1-1</Body>
 	<Body>Finger1-2</Body>
 	<offsetfrom>Finger1-1</offsetfrom>
@@ -264,7 +266,7 @@
     </mass>
   </Body>
   
-  <Joint name="JF7" type="hinge">
+  <Joint name="JF7" type="hinge" enable = "false">
     <Body>Finger2-1</Body>
     <Body>handbase</Body>
     <offsetfrom>handbase</offsetfrom>
