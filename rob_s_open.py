@@ -4,7 +4,7 @@ import openravepy
 import IPython
 import numpy as np
 import rospy
-from robotiq_s_model_control.msg import _SModel_robot_input  as inputMsg
+# from robotiq_s_model_control.msg import _SModel_robot_input  as inputMsg
 
 
 class Robotiq_gripper(object):
@@ -110,6 +110,9 @@ def gripper_model():
     viewer = env.GetViewer()
     viewer.SetBkgndColor([.8, .85, .9])  # RGB tuple
     robot = env.GetRobots()[0]
+
+    T11 = robot.GetLinks()[7].GetTransform()
+    T12 = robot.GetLinks()[8].GetTransform()
 
     # gripper = Robotiq_gripper(robot)
     IPython.embed()
