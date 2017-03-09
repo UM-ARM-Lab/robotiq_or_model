@@ -13,13 +13,13 @@
       <data>models/ROBOTIQ_S/finger-base.iv 1</data>
       <Render>models/ROBOTIQ_S/finger-base.iv 1</Render>
     </Geom>
-	  <Geom type="trimesh" modifiable="false">
+    <Geom type="trimesh" modifiable="false">
       <Translation>-4.0  4.4  -0.55</Translation>
       <RotationMat>1 0 0 0 1 0 0 0 1</RotationMat>
       <data>models/ROBOTIQ_S/finger-base.iv 1</data>
       <Render>models/ROBOTIQ_S/finger-base.iv 1</Render>
     </Geom>
-	  <Geom type="trimesh" modifiable="false">
+    <Geom type="trimesh" modifiable="false">
       <Translation>15.5  4.4  8.35</Translation>
       <RotationMat>-1 0 0 0 1 0 0 0 -1 </RotationMat>
       <data>models/ROBOTIQ_S/finger-base.iv 1</data>
@@ -33,11 +33,12 @@
     </mass>
   </Body>
 
-  <!-- finger 0: the lowest link which is attached to the base, the finer is hinged on this link-->
-  <Body name="Finger0-0" type="dynamic">
+  <!--Finger A-->
+
+<Body name="FingerA-0" type="dynamic">
     <offsetfrom>handbase</offsetfrom>
-    <Translation>-4 4.5 5.38</Translation>
-	
+  <Translation>16 4.5 8.4</Translation>
+  <RotationMat>-1 0 0 0 1 0 0 0 -1 </RotationMat>
     <Geom type="trimesh" modifiable="false">
       <data>models/ROBOTIQ_S/finger-prox-1.iv 1</data>
       <Render>models/ROBOTIQ_S/finger-prox-1.iv 1</Render>
@@ -51,11 +52,12 @@
   </Body>
   
   <!--second link, which is attached to above link-->
-  <Body name="Finger0-1" type="dynamic" >
-    <offsetfrom>Finger0-0</offsetfrom>
+  <Body name="FingerA-1" type="dynamic" >
+    <offsetfrom>FingerA-0</offsetfrom>
     <Translation>0 0 0</Translation>
+  <RotationMat>1 0 0 0 1 0 0 0 1 </RotationMat>
 
-	<diffuseColor>0 0.5 0.05</diffuseColor>
+  <diffuseColor>0 0.5 0.05</diffuseColor>
     <Geom type="trimesh" modifiable="false">
       <Translation>0 0 0</Translation>
       <data>models/ROBOTIQ_S/finger-med-1.iv 1</data>
@@ -69,12 +71,111 @@
     </mass>
   </Body>
   
-  <Joint name="JF0-0" type="hinge">
-    <Body>Finger0-0</Body>
+  <Joint name="JFA-0" type="hinge" enable = "true">
+    <Body>FingerA-0</Body>
     <Body>handbase</Body>
     <offsetfrom>handbase</offsetfrom>
     <weight>0.03846</weight>
-	
+  
+    <limitsdeg>117.29 -50</limitsdeg>
+
+    <anchor>9.2 7.5 6</anchor>
+    <maxvel>2</maxvel>
+    <resolution>2</resolution>
+
+    <maxtorque>4.2</maxtorque>
+  </Joint>
+  
+  <Body name="FingerA-2" type="dynamic" >
+    <offsetfrom>FingerA-1</offsetfrom>
+    <Translation>0 0 0</Translation>
+  <RotationMat>1 0 0 0 1 0 0 0 1 </RotationMat>
+  <diffuseColor>0 0.5 0.05</diffuseColor>
+    <Geom type="trimesh" modifiable="false">
+      <Translation>0 0 0</Translation>
+      <data>models/ROBOTIQ_S/finger-dist-1.iv 1</data>
+      <Render>models/ROBOTIQ_S/finger-dist-1.iv 1</Render>
+    </Geom>
+    <mass type="custom">
+      <!-- approximate as box -->
+      <total>0.1</total>
+      <com>0 0 1</com>
+      <inertia>0.000009 0 0 0 0.000074 0 0 0 0.000514</inertia>
+    </mass>
+  </Body>
+  
+  
+  <Joint name="JFA-1" type="hinge" enable="true">
+    <Body>FingerA-1</Body>
+    <Body>FingerA-0</Body>
+    <offsetfrom>FingerA-0</offsetfrom>
+    <weight>3.846</weight>
+    <!--<anchor>0.4 11.6 9</anchor>-->
+    <anchor> 3.88045  7.27341  2.19965 </anchor>
+    <limitsdeg>90 0</limitsdeg>
+    <maxvel>2</maxvel>
+    <resolution>2</resolution>
+    <maxtorque>5.2</maxtorque>
+  </Joint>
+  
+
+  <Joint name="JFA-2" type="hinge" enable="true">
+    <Body>FingerA-2</Body>
+    <Body>FingerA-1</Body>
+    
+    <offsetfrom>FingerA-1</offsetfrom>
+    <weight>0.03846</weight>
+    <anchor>2.48039 9.92011 2.19964</anchor>
+    <axis>0 0 1</axis>
+
+    <limitsdeg>-90 90</limitsdeg>
+    <maxvel>2</maxvel>
+    <resolution>2</resolution>
+    <maxtorque>2</maxtorque>
+  </Joint> 
+
+  <!--Finger 2-->
+<Body name="FingerB-0" type="dynamic">
+    <offsetfrom>handbase</offsetfrom>
+    <Translation>-4 4.5 -0.55</Translation>
+  
+    <Geom type="trimesh" modifiable="false">
+      <data>models/ROBOTIQ_S/finger-prox-1.iv 1</data>
+      <Render>models/ROBOTIQ_S/finger-prox-1.iv 1</Render>
+    </Geom>
+    <mass type="custom">
+      <!-- approximate as box -->
+      <total>0.1</total>
+      <com>0.026484 0.000000 0.007214</com>
+      <inertia>0.000025 0 0 0 0.000069 0 0 0 0.000459</inertia>
+    </mass>
+  </Body>
+  
+  <!--second link, which is attached to above link-->
+  <Body name="FingerB-1" type="dynamic" >
+    <offsetfrom>FingerB-0</offsetfrom>
+    <Translation>0 0 0</Translation>
+
+  <diffuseColor>0 0.5 0.05</diffuseColor>
+    <Geom type="trimesh" modifiable="false">
+      <Translation>0 0 0</Translation>
+      <data>models/ROBOTIQ_S/finger-med-1.iv 1</data>
+      <Render>models/ROBOTIQ_S/finger-med-1.iv 1</Render>
+    </Geom>
+    <mass type="custom">
+      <!-- approximate as box -->
+      <total>0.1</total>
+      <com>0 0 1</com>
+      <inertia>0.000009 0 0 0 0.000074 0 0 0 0.000514</inertia>
+    </mass>
+  </Body>
+  
+  <Joint name="JFB-0" type="hinge" enable = "true">
+    <Body>FingerB-0</Body>
+    <Body>handbase</Body>
+    <offsetfrom>handbase</offsetfrom>
+    <weight>0.03846</weight>
+  
     <limitsdeg>117.29 -50</limitsdeg>
 
     <anchor>1.8835 7.81918 14.98443</anchor>
@@ -84,10 +185,112 @@
     <maxtorque>4.2</maxtorque>
   </Joint>
   
-  <Body name="Finger0-2" type="dynamic" >
-    <offsetfrom>Finger0-1</offsetfrom>
+  <Body name="FingerB-2" type="dynamic" >
+    <offsetfrom>FingerB-1</offsetfrom>
     <Translation>0 0 0</Translation>
-	<diffuseColor>0 0.5 0.05</diffuseColor>
+  <diffuseColor>0 0.5 0.05</diffuseColor>
+    <Geom type="trimesh" modifiable="false">
+      <Translation>0 0 0</Translation>
+      <data>models/ROBOTIQ_S/finger-dist-1.iv 1</data>
+      <Render>models/ROBOTIQ_S/finger-dist-1.iv 1</Render>
+    </Geom>
+    <mass type="custom">
+      <!-- approximate as box -->
+      <total>0.1</total>
+      <com>0 0 1</com>
+      <inertia>0.000009 0 0 0 0.000074 0 0 0 0.000514</inertia>
+    </mass>
+  </Body>
+  
+  
+  <Joint name="JFB-1" type="hinge" enable="true">
+    <Body>FingerB-1</Body>
+    <Body>FingerB-0</Body>
+    <offsetfrom>FingerB-0</offsetfrom>
+    <weight>3.846</weight>
+    <!--<anchor>0.4 11.6 9</anchor>-->
+ 
+
+    <anchor>3.88331 7.27286 3.64236 </anchor>
+
+    <limitsdeg>90 0</limitsdeg>
+    <maxvel>2</maxvel>
+    <resolution>2</resolution>
+    <maxtorque>5.2</maxtorque>
+  </Joint>
+  
+  <Joint name="JFB-2" type="hinge" enable="true">
+    <Body>FingerB-2</Body>
+    <Body>FingerB-1</Body>
+  
+    <offsetfrom>FingerB-1</offsetfrom>
+    <weight>0.03846</weight>
+  <!-- <anchor>0.4 11.6 9</anchor> -->
+    <anchor> 2.45015 9.85455 2.09954 </anchor>
+    <axis>0 0 1</axis>
+
+    <limitsdeg>-90 90</limitsdeg>
+    <maxvel>2</maxvel>
+    <resolution>2</resolution>
+    <maxtorque>2</maxtorque>
+  </Joint> 
+  
+
+  <!-- finger 0: the lowest link which is attached to the base, the finer is hinged on this link-->
+  <Body name="FingerC-0" type="dynamic">
+    <offsetfrom>handbase</offsetfrom>
+    <Translation>-4 4.5 5.38</Translation>
+  
+    <Geom type="trimesh" modifiable="false">
+      <data>models/ROBOTIQ_S/finger-prox-1.iv 1</data>
+      <Render>models/ROBOTIQ_S/finger-prox-1.iv 1</Render>
+    </Geom>
+    <mass type="custom">
+      <!-- approximate as box -->
+      <total>0.1</total>
+      <com>0.026484 0.000000 0.007214</com>
+      <inertia>0.000025 0 0 0 0.000069 0 0 0 0.000459</inertia>
+    </mass>
+  </Body>
+  
+  <!--second link, which is attached to above link-->
+  <Body name="FingerC-1" type="dynamic" >
+    <offsetfrom>FingerC-0</offsetfrom>
+    <Translation>0 0 0</Translation>
+
+  <diffuseColor>0 0.5 0.05</diffuseColor>
+    <Geom type="trimesh" modifiable="false">
+      <Translation>0 0 0</Translation>
+      <data>models/ROBOTIQ_S/finger-med-1.iv 1</data>
+      <Render>models/ROBOTIQ_S/finger-med-1.iv 1</Render>
+    </Geom>
+    <mass type="custom">
+      <!-- approximate as box -->
+      <total>0.1</total>
+      <com>0 0 1</com>
+      <inertia>0.000009 0 0 0 0.000074 0 0 0 0.000514</inertia>
+    </mass>
+  </Body>
+  
+  <Joint name="JFC-0" type="hinge">
+    <Body>FingerC-0</Body>
+    <Body>handbase</Body>
+    <offsetfrom>handbase</offsetfrom>
+    <weight>0.03846</weight>
+  
+    <limitsdeg>117.29 -50</limitsdeg>
+
+    <anchor>1.8835 7.81918 14.98443</anchor>
+    <maxvel>2</maxvel>
+    <resolution>2</resolution>
+
+    <maxtorque>4.2</maxtorque>
+  </Joint>
+  
+  <Body name="FingerC-2" type="dynamic" >
+    <offsetfrom>FingerC-1</offsetfrom>
+    <Translation>0 0 0</Translation>
+    <diffuseColor>0 0.5 0.05</diffuseColor>
     <Geom type="trimesh" modifiable="false">
       <Translation>0 0 0</Translation>
       <data>models/ROBOTIQ_S/finger-dist-1.iv 1</data>
@@ -102,236 +305,54 @@
   </Body>
   
   <!-- enable = "false" -->
-  <Joint name="JF0-1" type="hinge" enable = "true">
-    <Body>Finger0-1</Body>
-    <Body>Finger0-0</Body>
-	
-	  <offsetfrom>Finger0-0</offsetfrom>
-	  <weight>3.846</weight>
+  <Joint name="JFC-1" type="hinge" enable = "true">
+    <Body>FingerC-1</Body>
+    <Body>FingerC-0</Body>
+  
+    <offsetfrom>FingerC-0</offsetfrom>
+    <weight>3.846</weight>
     <!-- anchor was commented out -->
-	  <anchor>3.85014 7.03423 3.64595</anchor> 
+    <anchor>3.89271 7.27186 3.6423 </anchor> 
 
-	  <limitsdeg>90 0</limitsdeg>
+    <limitsdeg>90 0</limitsdeg>
     <maxvel>2</maxvel>
     <resolution>2</resolution>
     <maxtorque>5.2</maxtorque>
   </Joint>
   
 
-  <Joint name="JF0-2" type="hinge" enable="true">
-    <Body>Finger0-1</Body>
-	  <Body>Finger0-2</Body>
-	  <offsetfrom>Finger0-0</offsetfrom>
-	  <weight>0.03846</weight>
-	  <anchor>2.45742 9.8237 3.6435 </anchor>
-	  <axis>0 0 1</axis>
-
-	  <limitsdeg>-90 90</limitsdeg>
-    <maxvel>2</maxvel>
-    <resolution>2</resolution>
-    <maxtorque>2</maxtorque>
-  </Joint>
-  
-<!--Finger 2-->
-<Body name="Finger1-0" type="dynamic">
-    <offsetfrom>handbase</offsetfrom>
-    <Translation>-4 4.5 -0.55</Translation>
-	
-    <Geom type="trimesh" modifiable="false">
-      <data>models/ROBOTIQ_S/finger-prox-1.iv 1</data>
-      <Render>models/ROBOTIQ_S/finger-prox-1.iv 1</Render>
-    </Geom>
-    <mass type="custom">
-      <!-- approximate as box -->
-      <total>0.1</total>
-      <com>0.026484 0.000000 0.007214</com>
-      <inertia>0.000025 0 0 0 0.000069 0 0 0 0.000459</inertia>
-    </mass>
-  </Body>
-  
-  <!--second link, which is attached to above link-->
-  <Body name="Finger1-1" type="dynamic" >
-    <offsetfrom>Finger1-0</offsetfrom>
-    <Translation>0 0 0</Translation>
-
-	<diffuseColor>0 0.5 0.05</diffuseColor>
-    <Geom type="trimesh" modifiable="false">
-      <Translation>0 0 0</Translation>
-      <data>models/ROBOTIQ_S/finger-med-1.iv 1</data>
-      <Render>models/ROBOTIQ_S/finger-med-1.iv 1</Render>
-    </Geom>
-    <mass type="custom">
-      <!-- approximate as box -->
-      <total>0.1</total>
-      <com>0 0 1</com>
-      <inertia>0.000009 0 0 0 0.000074 0 0 0 0.000514</inertia>
-    </mass>
-  </Body>
-  
-  <Joint name="JF1-0" type="hinge" enable = "true">
-    <Body>Finger1-0</Body>
-    <Body>handbase</Body>
-    <offsetfrom>handbase</offsetfrom>
+  <Joint name="JFC-2" type="hinge" enable="true">
+    <Body>FingerC-2</Body>
+    <Body>FingerC-1</Body>
+    
+    <offsetfrom>FingerC-1</offsetfrom>
     <weight>0.03846</weight>
-	
-    <limitsdeg>117.29 -50</limitsdeg>
+    <anchor>2.45742 9.8237 3.6435 </anchor>
+    <axis>0 0 1</axis>
 
-    <anchor>1.8835 7.81918 14.98443</anchor>
-    <maxvel>2</maxvel>
-    <resolution>2</resolution>
-
-    <maxtorque>4.2</maxtorque>
-  </Joint>
-  
-  <Body name="Finger1-2" type="dynamic" >
-    <offsetfrom>Finger1-1</offsetfrom>
-    <Translation>0 0 0</Translation>
-	<diffuseColor>0 0.5 0.05</diffuseColor>
-    <Geom type="trimesh" modifiable="false">
-      <Translation>0 0 0</Translation>
-      <data>models/ROBOTIQ_S/finger-dist-1.iv 1</data>
-      <Render>models/ROBOTIQ_S/finger-dist-1.iv 1</Render>
-    </Geom>
-    <mass type="custom">
-      <!-- approximate as box -->
-      <total>0.1</total>
-      <com>0 0 1</com>
-      <inertia>0.000009 0 0 0 0.000074 0 0 0 0.000514</inertia>
-    </mass>
-  </Body>
-  
-  
-  <Joint name="JF1-1" type="hinge" enable="true">
-    <Body>Finger1-0</Body>
-	  <Body>Finger1-1</Body>
-	  <offsetfrom>Finger1-0</offsetfrom>
-	  <weight>3.846</weight>
-	  <!--<anchor>0.4 11.6 9</anchor>-->
- 
-
-    <anchor>  3.78921 7.28007 -2.09954 </anchor>
-
-	  <limitsdeg>-90 0</limitsdeg>
-    <maxvel>2</maxvel>
-    <resolution>2</resolution>
-    <maxtorque>5.2</maxtorque>
-  </Joint>
-  
-  <Joint name="JF1-2" type="hinge" enable="true">
-    <Body>Finger1-1</Body>
-	<Body>Finger1-2</Body>
-	<offsetfrom>Finger1-1</offsetfrom>
-	<weight>0.03846</weight>
-	<!-- <anchor>0.4 11.6 9</anchor> -->
-  <anchor> 2.45015 9.85455 2.09954 </anchor>
-	<axis>0 0 1</axis>
-
-	<limitsdeg>-90 90</limitsdeg>
+    <limitsdeg>-90 90</limitsdeg>
     <maxvel>2</maxvel>
     <resolution>2</resolution>
     <maxtorque>2</maxtorque>
-  </Joint> 
-  
-<!--Finger 3-->
-
-<Body name="Finger2-0" type="dynamic">
-    <offsetfrom>handbase</offsetfrom>
-    <Translation>16 4.5 8.4</Translation>
-	<RotationMat>-1 0 0 0 1 0 0 0 -1 </RotationMat>
-    <Geom type="trimesh" modifiable="false">
-      <data>models/ROBOTIQ_S/finger-prox-1.iv 1</data>
-      <Render>models/ROBOTIQ_S/finger-prox-1.iv 1</Render>
-    </Geom>
-    <mass type="custom">
-      <!-- approximate as box -->
-      <total>0.1</total>
-      <com>0.026484 0.000000 0.007214</com>
-      <inertia>0.000025 0 0 0 0.000069 0 0 0 0.000459</inertia>
-    </mass>
-  </Body>
-  
-  <!--second link, which is attached to above link-->
-  <Body name="Finger2-1" type="dynamic" >
-    <offsetfrom>Finger2-0</offsetfrom>
-    <Translation>0 0 0</Translation>
-	<RotationMat>1 0 0 0 1 0 0 0 1 </RotationMat>
-
-	<diffuseColor>0 0.5 0.05</diffuseColor>
-    <Geom type="trimesh" modifiable="false">
-      <Translation>0 0 0</Translation>
-      <data>models/ROBOTIQ_S/finger-med-1.iv 1</data>
-      <Render>models/ROBOTIQ_S/finger-med-1.iv 1</Render>
-    </Geom>
-    <mass type="custom">
-      <!-- approximate as box -->
-      <total>0.1</total>
-      <com>0 0 1</com>
-      <inertia>0.000009 0 0 0 0.000074 0 0 0 0.000514</inertia>
-    </mass>
-  </Body>
-  
-  <Joint name="JF2-0" type="hinge" enable = "true">
-    <Body>Finger2-0</Body>
-    <Body>handbase</Body>
-    <offsetfrom>handbase</offsetfrom>
-    <weight>0.03846</weight>
-	
-    <limitsdeg>117.29 -50</limitsdeg>
-
-    <anchor>9.2 7.5 6</anchor>
-    <maxvel>2</maxvel>
-    <resolution>2</resolution>
-
-    <maxtorque>4.2</maxtorque>
   </Joint>
   
-  <Body name="Finger2-2" type="dynamic" >
-    <offsetfrom>Finger2-1</offsetfrom>
-    <Translation>0 0 0</Translation>
-	<RotationMat>1 0 0 0 1 0 0 0 1 </RotationMat>
-	<diffuseColor>0 0.5 0.05</diffuseColor>
-    <Geom type="trimesh" modifiable="false">
-      <Translation>0 0 0</Translation>
-      <data>models/ROBOTIQ_S/finger-dist-1.iv 1</data>
-      <Render>models/ROBOTIQ_S/finger-dist-1.iv 1</Render>
-    </Geom>
-    <mass type="custom">
-      <!-- approximate as box -->
-      <total>0.1</total>
-      <com>0 0 1</com>
-      <inertia>0.000009 0 0 0 0.000074 0 0 0 0.000514</inertia>
-    </mass>
-  </Body>
-  
-  
-  <Joint name="JF2-1" type="hinge" enable="true">
-    <Body>Finger2-0</Body>
-	<Body>Finger2-1</Body>
-	<offsetfrom>Finger2-0</offsetfrom>
-	<weight>3.846</weight>
-	<!--<anchor>0.4 11.6 9</anchor>-->
-  <anchor> 3.88045  7.27341  2.19965 </anchor>
-	<limitsdeg>-90 0</limitsdeg>
-    <maxvel>2</maxvel>
-    <resolution>2</resolution>
-    <maxtorque>5.2</maxtorque>
-  </Joint>
-  
+  <Manipulator name="FingerA">
+    <effector>FingerA-2</effector>
+    <base>handbase</base>
+    <joints>JFA-0 JFA-1 JFA-2</joints> 
+  </Manipulator>
 
+  <Manipulator name="FingerB">
+    <effector>FingerB-2</effector>
+    <base>handbase</base>
+    <joints>JFB-0 JFB-1 JFB-2</joints> 
+  </Manipulator>
 
-  
-  <Joint name="JF2-2" type="hinge" enable="true">
-    <Body>Finger2-1</Body>
-	<Body>Finger2-2</Body>
-	<offsetfrom>Finger2-1</offsetfrom>
-	<weight>0.03846</weight>
-	<anchor>2.48039 9.92011 2.19964</anchor>
-	<axis>0 0 1</axis>
+  <Manipulator name="FingerC">
+    <effector>FingerC-2</effector>
+    <base>handbase</base>
+    <joints>JFC-0 JFC-1 JFC-2</joints> 
+  </Manipulator>
 
-	<limitsdeg>-90 90</limitsdeg>
-    <maxvel>2</maxvel>
-    <resolution>2</resolution>
-    <maxtorque>2</maxtorque>
-  </Joint> 
   
 </KinBody>
