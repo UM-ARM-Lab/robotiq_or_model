@@ -30,7 +30,7 @@ class Finger():
         self.g = 0
         self.max_angle = (70.0, 90.0, 43.0)
         self.min_3 = -55.0
-        self.manip
+        
 
         
     def m3(self):
@@ -126,7 +126,7 @@ class Robotiq_gripper(object):
     def get_effector_pos(self):
         manip = self.gripper.SetActiveManipulator("FingerA")
         T = manip.GetEndEffectorTransform()
-        self.A.
+        
 
 
 
@@ -135,14 +135,14 @@ def gripper_model():
     env.Load("env.xml")
     env.SetViewer('qtcoin')
     viewer = env.GetViewer()
-    viewer.SetBkgndColor([.8, .85, .9])  # RGB tuple
-    robot = env.GetRobots()[0]
+    # viewer.SetBkgndColor([.8, .85, .9])  # RGB tuple
+    robot = env.GetBodies()[0]
 
     gripper = Robotiq_gripper(robot)
-    while(1):
-        g = int(raw_input("set value of g: "))
-        test = Test(g)
-        gripper.update_fingers(test)
+    # while(1):
+    #     g = int(raw_input("set value of g: "))
+    #     test = Test(g)
+    #     gripper.update_fingers(test)
 
     IPython.embed()
     # rospy.init_node('GripperDisplay')
