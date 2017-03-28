@@ -1,17 +1,16 @@
 <!-- Model of Robotiq_S_model gripper using stl files from Solidworks files provided by robotiq -->
 <KinBody name="robotiq_s_model"> 
-    <!-- <Translation> 0.1  0.03  0.0</Translation> -->
 
-    <!-- <Body name="wrist">
-         <Geom type="trimesh" modifiable="false">
+    <Body name="wrist" type="dynamic">
+        <Geom type="trimesh" modifiable="false">
             <Translation> 0.0  0.0  0.0</Translation>
             <data> models/robotiqstl2/wrist1.STL</data>
             <Render>  models/robotiqstl2/wrist1.STL </Render>
         </Geom>
-    </Body>  -->
-
+    </Body>
+ 
     <Body name="base" type="dynamic">
-        <!-- <offsetfrom>wrist </offsetfrom> -->
+        <offsetfrom>wrist </offsetfrom>
         <Geom type="trimesh" modifiable="false">
             <Translation> 0.0  0.0  0.0</Translation>
             <data> models/robotiqstl2/palm1.STL</data>
@@ -36,33 +35,6 @@
 
     </Body>
 
-    <!--Finger A-->
-   
-
-    <!-- <Body name="baseA" type = "dynamic">
-        <offsetfrom> base</offsetfrom>
-        <Geom type="trimesh" modifiable="false">
-            <data> models/robotiqstl2/finger-base1.STL</data>
-            <Render>  models/robotiqstl2/finger-base1.STL </Render>
-        </Geom>
-    </Body>
-
-    <Body name="baseB" type = "dynamic">
-        <offsetfrom> base</offsetfrom>
-        <Geom type="trimesh" modifiable="false">
-            <data> models/robotiqstl2/finger-base2.STL</data>
-            <Render> models/robotiqstl2/finger-base2.STL</Render>
-        </Geom>
-    </Body>
-
-    <Body name="baseC" type = "dynamic">
-        <offsetfrom> base</offsetfrom>
-        <Geom type="trimesh" modifiable="false">
-            <data> models/robotiqstl2/finger-base3.STL</data>
-            <Render> models/robotiqstl2/finger-base3.STL</Render>
-        </Geom>
-    </Body> -->
-
 
     <Body name="FingerA-1" type="dynamic">
         <offsetfrom>base</offsetfrom>
@@ -85,9 +57,7 @@
 
     <Body name="FingerA-3" type="dynamic">
         <offsetfrom>FingerA-2</offsetfrom>
-        <!-- <Translation>16 4.5 8.4</Translation> -->
-        <!-- <RotationMat>-1 0 0 0 1 0 0 0 -1 </RotationMat> -->
-        <!-- <rotationaxis> 0 0 1 90 </rotationaxis> -->
+       
         <Geom type="trimesh" modifiable="false">
             <data>models/robotiqstl2/finger-dist1.STL</data>
             <Render>models/robotiqstl2/finger-dist1.STL</Render>
@@ -124,8 +94,7 @@
     <!-- Finger B -->
     <Body name="FingerB-1" type="dynamic">
         <offsetfrom>base</offsetfrom>
-        <!-- <Translation>16 4.5 8.4</Translation> -->
-        <!-- <RotationMat>-1 0 0 0 1 0 0 0 -1 </RotationMat> -->
+       
         <Geom type="trimesh" modifiable="false">
             <data>models/robotiqstl2/finger-prox2.STL</data>
             <Render>models/robotiqstl2/finger-prox2.STL</Render>
@@ -134,8 +103,7 @@
 
     <Body name="FingerB-2" type="dynamic">
         <offsetfrom>FingerB-1</offsetfrom>
-        <!-- <Translation>16 4.5 8.4</Translation> -->
-        <!-- <RotationMat>-1 0 0 0 1 0 0 0 -1 </RotationMat> -->
+        
         <Geom type="trimesh" modifiable="false">
             <data>models/robotiqstl2/finger-med2.STL</data>
             <Render>models/robotiqstl2/finger-med2.STL</Render>
@@ -144,8 +112,7 @@
 
    <Body name="FingerB-3" type="dynamic">
         <offsetfrom>FingerB-2</offsetfrom>
-        <!-- <Translation>16 4.5 8.4</Translation> -->
-        <!-- <RotationMat>-1 0 0 0 1 0 0 0 -1 </RotationMat> -->
+    
         <Geom type="trimesh" modifiable="false">
             <data>models/robotiqstl2/finger-dist2.STL</data>
             <Render>models/robotiqstl2/finger-dist2.STL</Render>
@@ -179,8 +146,7 @@
     <!-- Finger C -->
     <Body name="FingerC-1" type="dynamic">
         <offsetfrom>base</offsetfrom>
-        <!-- <Translation>16 4.5 8.4</Translation> -->
-        <!-- <RotationMat>-1 0 0 0 1 0 0 0 -1 </RotationMat> -->
+     
         <Geom type="trimesh" modifiable="false">
             <data>models/robotiqstl2/finger-prox3.STL</data>
             <Render>models/robotiqstl2/finger-prox3.STL</Render>
@@ -189,8 +155,7 @@
 
     <Body name="FingerC-2" type="dynamic">
         <offsetfrom>FingerC-1</offsetfrom>
-        <!-- <Translation>16 4.5 8.4</Translation> -->
-        <!-- <RotationMat>-1 0 0 0 1 0 0 0 -1 </RotationMat> -->
+        
         <Geom type="trimesh" modifiable="false">
             <data>models/robotiqstl2/finger-med3.STL</data>
             <Render>models/robotiqstl2/finger-med3.STL</Render>
@@ -199,8 +164,7 @@
 
     <Body name="FingerC-3" type="dynamic">
         <offsetfrom>FingerC-2</offsetfrom>
-        <!-- <Translation>16 4.5 8.4</Translation> -->
-        <!-- <RotationMat>-1 0 0 0 1 0 0 0 -1 </RotationMat> -->
+
         <Geom type="trimesh" modifiable="false">
             <data>models/robotiqstl2/finger-dist3.STL</data>
             <Render>models/robotiqstl2/finger-dist3.STL</Render>
