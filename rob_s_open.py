@@ -26,11 +26,11 @@ class Finger():
     def __init__(self):
         # self.phase = 1
         # self.state = [0,0,0,0,0,0]
-        self.joints = [0.0,0.0,0.0]
+        self.joints = [0.0, 0.0,0.0,0.0]
         self.g = 0
         self.max_angle = (70.0, 90.0, 43.0)
         self.min_3 = -55.0
-        
+        self.mode = 0
 
         
     def m3(self):
@@ -41,7 +41,7 @@ class Finger():
         check_contacts()
     
     def check_limits(self, deltaG):
-        for i in range(3):
+        for i in range(1,4):
             if self.state[i+3]  == 0 and self.joints[i] >= self.max_angle[i]:
                 self.state[i+3] = 1
 
@@ -84,30 +84,10 @@ class Finger():
             theta2 = self.max_angle[1]
             theta3 = self.min_3
  
-        self.joints = [theta1, theta2, theta3]
+        self.joints = [self.mode, theta1, theta2, theta3]
 
         return
 
-    # def update_joints(self, g):
-    #     delta1 = 0
-    #     delta2 = 0
-    #     delta3 = 0
-
-    #     deltaG = g - self.g
-
-    #     if self.phase == 1:
-    #         delta1 = self.m1*deltaG
-    #         delta3 = -self.m1*deltaG
-    #     elif self.phase == 2:
-    #         delta2 = self.m2*deltaG
-    #         delta3 = -delta2
-    #     elif self.phase == 3:
-    #         delta3 = self.m3() * deltaG
-
-    #     self.joints = self.joints + (delta1, delta2, delta3)
-
-    #     self.update_status(deltaG)
-    #     self.g = g
 
 class Robotiq_gripper(object):
     def __init__(self, robot):
@@ -115,17 +95,30 @@ class Robotiq_gripper(object):
         self.A = Finger()    
         self.B = Finger()
         self.C = Finger()
+        self.mode = 0
 
-    def update_fingers(self, status):
+    def update_mode(self, new_mode):
+        new_joint = 0.0
+        if(new_mode >= 0):
+            new_joint = new_mode*16
+        else:
+            new_joint = new_mode*10
+
+        self.B.mode = -new_joint
+        self.C.mode = new_joint 
+
+    def update_joints(self, status):
         self.A.no_obj_update(status.gPOA)
         self.B.no_obj_update(status.gPOB)
         self.C.no_obj_update(status.gPOC)
+
+    def update_model(self):
         self.gripper.SetDOFValues(list(itertools.chain(Deg2Rad(self.A.joints), 
                                                        Deg2Rad(self.B.joints), 
                                                        Deg2Rad(self.C.joints))))
-    def get_effector_pos(self):
-        manip = self.gripper.SetActiveManipulator("FingerA")
-        T = manip.GetEndEffectorTransform()
+    # def get_effector_pos(self):
+    #     manip = self.gripper.SetActiveManipulator("FingerA")
+    #     T = manip.GetEndEffectorTransform()
         
 
 
@@ -139,15 +132,17 @@ def gripper_model():
     robot = env.GetBodies()[0]
 
     gripper = Robotiq_gripper(robot)
-    # while(1):
-    #     g = int(raw_input("set value of g: "))
-    #     test = Test(g)
-    #     gripper.update_fingers(test)
+    while(1):
+        mode = int(raw_input("set mode: "))
+        # g = 0
+        g = int(raw_input("set value of g: "))
+        test = Test(g)
+        gripper.update_mode(mode)
+        gripper.update_joints(test)
+        gripper.update_model()
 
     IPython.embed()
-    # rospy.init_node('GripperDisplay')
-    # rospy.Subscriber("/gripper_server/input", inputMsg.SModel_robot_input, gripper.update_fingers)
-    # rospy.spin()
+
 
 if __name__ == "__main__":
     gripper_model()

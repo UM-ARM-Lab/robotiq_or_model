@@ -1,100 +1,102 @@
 <!-- Model of Robotiq_S_model gripper using stl files from Solidworks files provided by robotiq -->
 <KinBody name="robotiq_s_model"> 
-
-    <Body name="wrist" type="dynamic">
-        <Geom type="trimesh" modifiable="false">
-            <Translation> 0.0  0.0  0.0</Translation>
-            <data> models/robotiqstl2/wrist1.STL</data>
-            <Render>  models/robotiqstl2/wrist1.STL </Render>
-        </Geom>
-    </Body>
  
     <Body name="base" type="dynamic">
-        <offsetfrom>wrist </offsetfrom>
         <Geom type="trimesh" modifiable="false">
             <Translation> 0.0  0.0  0.0</Translation>
             <data> models/robotiqstl2/palm1.STL</data>
             <Render>  models/robotiqstl2/palm1.STL </Render>
         </Geom>
 
-        <Geom type="trimesh" modifiable="false">
-            <data> models/robotiqstl2/finger-base1.STL</data>
-            <Render>  models/robotiqstl2/finger-base1.STL </Render>
-        </Geom>
+       <!--  <Geom type="trimesh" modifiable="false">
+            <data> models/robotiqstl2/finger-base3.STL</data>
+            <Render> models/robotiqstl2/finger-base3.STL</Render>
+        </Geom> -->
+
+    </Body>
+
+       <!-- Finger A -->
+    <Body name="FingerA-0" type="dynamic">
+        <offsetfrom>base</offsetfrom>
 
         <Geom type="trimesh" modifiable="false">
             <data> models/robotiqstl2/finger-base3.STL</data>
             <Render> models/robotiqstl2/finger-base3.STL</Render>
         </Geom>
-                
-        <Geom type="trimesh" modifiable="false">
-            <data> models/robotiqstl2/finger-base2.STL</data>
-            <Render> models/robotiqstl2/finger-base2.STL</Render>
-        </Geom>
-        
-
     </Body>
-
 
     <Body name="FingerA-1" type="dynamic">
         <offsetfrom>base</offsetfrom>
-
+     
         <Geom type="trimesh" modifiable="false">
-            <data>models/robotiqstl2/finger-prox1.STL</data>
-            <Render>models/robotiqstl2/finger-prox1.STL</Render>
+            <data>models/robotiqstl2/finger-prox3.STL</data>
+            <Render>models/robotiqstl2/finger-prox3.STL</Render>
         </Geom>
     </Body>
 
     <Body name="FingerA-2" type="dynamic">
         <offsetfrom>FingerA-1</offsetfrom>
-        <!-- <Translation>16 4.5 8.4</Translation> -->
-        <!-- <RotationMat>-1 0 0 0 1 0 0 0 -1 </RotationMat> -->
+        
         <Geom type="trimesh" modifiable="false">
-            <data>models/robotiqstl2/finger-med1.STL</data>
-            <Render>models/robotiqstl2/finger-med1.STL</Render>
+            <data>models/robotiqstl2/finger-med3.STL</data>
+            <Render>models/robotiqstl2/finger-med3.STL</Render>
         </Geom>
     </Body>
 
     <Body name="FingerA-3" type="dynamic">
         <offsetfrom>FingerA-2</offsetfrom>
-       
+
         <Geom type="trimesh" modifiable="false">
-            <data>models/robotiqstl2/finger-dist1.STL</data>
-            <Render>models/robotiqstl2/finger-dist1.STL</Render>
+            <data>models/robotiqstl2/finger-dist3.STL</data>
+            <Render>models/robotiqstl2/finger-dist3.STL</Render>
         </Geom>
     </Body>
 
-    <Joint name="JA-01" type="hinge" enable="true">
-        <Body>FingerA-1</Body>
-        <Body>base </Body>
-        
-        <offsetfrom>base</offsetfrom>
-        <!-- <limitsdeg> </limitsdeg> -->
-        <anchor> -0.04 0.08 0.05 </anchor>
+    <Joint name="JA-00" type="hinge" enable="true">
+        <Body> base</Body>
+        <Body> FingerA-0</Body>
 
+        <limitsdeg>0 0</limitsdeg>
+    </Joint>    
+
+
+    <Joint name="JA-01" type="hinge" enable="true">
+        <Body>base</Body>
+        <Body>FingerA-1</Body>
+        <offsetfrom>base</offsetfrom>
+        <limitsdeg>0 70</limitsdeg>
+        <anchor>0.04 0.08 0.08</anchor>
     </Joint>
 
     <Joint name="JA-12" type="hinge" enable="true">
-        <Body>FingerA-2</Body>
-
         <Body>FingerA-1</Body>
+        <Body>FingerA-2</Body>
         <offsetfrom>FingerA-1</offsetfrom>
-        <!-- <limitsdeg></limitsdeg> -->
-        <anchor> -0.08 0.13 0.05</anchor>
+        <limitsdeg>0 90</limitsdeg>
+        <anchor>0.08 0.13 0.05</anchor>
     </Joint>
 
-    <Joint name="JA-23" type="hinge">
-        <Body>FingerA-3</Body>
+    <Joint name="JA-23" type="hinge" enable="true">
         <Body>FingerA-2</Body>
+        <Body>FingerA-3</Body>
         <offsetfrom>FingerA-2</offsetfrom>
-        <!-- <limitsdeg> </limitsdeg> -->
-        <anchor>-0.10 0.16 -0.05 </anchor>
+        <limitsdeg>-55 43</limitsdeg>
+        <anchor> 0.10 0.16 0.05</anchor>
     </Joint>
 
     <!-- Finger B -->
-    <Body name="FingerB-1" type="dynamic">
+    <Body name="FingerB-0" type="dynamic">
         <offsetfrom>base</offsetfrom>
-       
+        <Geom type="trimesh" modifiable="false">
+            <data>models/robotiqstl2/finger-base2.STL</data>
+            <Render>models/robotiqstl2/finger-base2.STL</Render>
+        </Geom>
+    </Body>
+
+    <Body name="FingerB-1" type="dynamic">
+        
+        <offsetfrom>FingerB-0</offsetfrom>
+
         <Geom type="trimesh" modifiable="false">
             <data>models/robotiqstl2/finger-prox2.STL</data>
             <Render>models/robotiqstl2/finger-prox2.STL</Render>
@@ -110,46 +112,69 @@
         </Geom>
     </Body>
 
-   <Body name="FingerB-3" type="dynamic">
-        <offsetfrom>FingerB-2</offsetfrom>
-    
+    <Body name="FingerB-3" type="dynamic">
+        <offsetfrom>FingerA-2</offsetfrom>
+       
         <Geom type="trimesh" modifiable="false">
             <data>models/robotiqstl2/finger-dist2.STL</data>
             <Render>models/robotiqstl2/finger-dist2.STL</Render>
         </Geom>
     </Body>
 
+    <Joint name="JB-00" type="hinge" enable="true">
+        <Body>base</Body>
+        <Body>FingerB-0</Body>
+        
+        <Axis>1 0 0</Axis>
+
+        <limitsdeg>-16 10</limitsdeg>
+        <offsetfrom>base</offsetfrom>
+        <anchor>-0.02230120  0.06111875 -0.03651250</anchor>
+    </Joint>
+
     <Joint name="JB-01" type="hinge" enable="true">
         <Body>FingerB-1</Body>
-        <Body>base</Body>
+        <Body>FingerB-0</Body>
+       
         <offsetfrom>base</offsetfrom>
-        <!-- <limitsdeg></limitsdeg> -->
-        <anchor>-0.04 0.08 -0.05</anchor>
+        <limitsdeg>0 70 </limitsdeg>
+        <anchor> -0.04 0.08 0.05 </anchor>
+
     </Joint>
 
     <Joint name="JB-12" type="hinge" enable="true">
         <Body>FingerB-2</Body>
+
         <Body>FingerB-1</Body>
         <offsetfrom>FingerB-1</offsetfrom>
-        <!-- <limitsdeg></limitsdeg> -->
-        <anchor>-0.08 0.13 0.05</anchor>
+        <limitsdeg>0 90</limitsdeg>
+        <anchor> -0.08 0.13 0.05</anchor>
     </Joint>
 
-    <Joint name="JB-23" type="hinge" enable="true">
+    <Joint name="JB-23" type="hinge">
         <Body>FingerB-3</Body>
         <Body>FingerB-2</Body>
         <offsetfrom>FingerB-2</offsetfrom>
-        <!-- <limitsdeg></limitsdeg> -->
-        <anchor> -0.10 0.16 0.05</anchor>
+        <limitsdeg>-55 43</limitsdeg>
+        <anchor>-0.10 0.16 -0.05 </anchor>
     </Joint>
 
     <!-- Finger C -->
-    <Body name="FingerC-1" type="dynamic">
+    <Body name="FingerC-0" type="dynamic">
         <offsetfrom>base</offsetfrom>
-     
+
         <Geom type="trimesh" modifiable="false">
-            <data>models/robotiqstl2/finger-prox3.STL</data>
-            <Render>models/robotiqstl2/finger-prox3.STL</Render>
+            <data> models/robotiqstl2/finger-base1.STL</data>
+            <Render>  models/robotiqstl2/finger-base1.STL </Render>
+        </Geom>
+    </Body>
+
+    <Body name="FingerC-1" type="dynamic">
+        <offsetfrom>FingerC-0</offsetfrom>
+       
+        <Geom type="trimesh" modifiable="false">
+            <data>models/robotiqstl2/finger-prox1.STL</data>
+            <Render>models/robotiqstl2/finger-prox1.STL</Render>
         </Geom>
     </Body>
 
@@ -157,42 +182,55 @@
         <offsetfrom>FingerC-1</offsetfrom>
         
         <Geom type="trimesh" modifiable="false">
-            <data>models/robotiqstl2/finger-med3.STL</data>
-            <Render>models/robotiqstl2/finger-med3.STL</Render>
+            <data>models/robotiqstl2/finger-med1.STL</data>
+            <Render>models/robotiqstl2/finger-med1.STL</Render>
         </Geom>
     </Body>
 
-    <Body name="FingerC-3" type="dynamic">
+   <Body name="FingerC-3" type="dynamic">
         <offsetfrom>FingerC-2</offsetfrom>
-
+    
         <Geom type="trimesh" modifiable="false">
-            <data>models/robotiqstl2/finger-dist3.STL</data>
-            <Render>models/robotiqstl2/finger-dist3.STL</Render>
+            <data>models/robotiqstl2/finger-dist1.STL</data>
+            <Render>models/robotiqstl2/finger-dist1.STL</Render>
         </Geom>
     </Body>
+
+    <Joint name="JC-00" type="hinge" enable="true">
+        <Body>base</Body>
+        <Body>FingerC-0</Body>
+        
+        <Axis>1 0 0</Axis>
+
+        <limitsdeg>-10 16</limitsdeg>
+        <offsetfrom>base</offsetfrom>
+        <anchor>-0.02230120  0.06111875 0.03651250</anchor>
+    </Joint>
 
     <Joint name="JC-01" type="hinge" enable="true">
-        <Body>base</Body>
         <Body>FingerC-1</Body>
+        <Body>FingerC-0</Body>
         <offsetfrom>base</offsetfrom>
-        <!-- <limitsdeg></limitsdeg> -->
-        <anchor>0.04 0.08 0.08</anchor>
+        <limitsdeg>0 70</limitsdeg>
+        <anchor>-0.04 0.08 0.05</anchor>
     </Joint>
 
     <Joint name="JC-12" type="hinge" enable="true">
-        <Body>FingerC-1</Body>
         <Body>FingerC-2</Body>
-        <offsetfrom>FingerC-1</offsetfrom>
-        <!-- <limitsdeg></limitsdeg> -->
-        <anchor>0.08 0.13 0.05</anchor>
+        <Body>FingerC-1</Body>
+        <offsetfrom>FingerB-1</offsetfrom>
+        <limitsdeg>0 90</limitsdeg>
+        <anchor>-0.08 0.13 0.05</anchor>
     </Joint>
 
     <Joint name="JC-23" type="hinge" enable="true">
-        <Body>FingerC-2</Body>
         <Body>FingerC-3</Body>
-        <offsetfrom>FingerC-2</offsetfrom>
-        <!-- <limitsdeg></limitsdeg> -->
-        <anchor> 0.10 0.16 0.05</anchor>
+        <Body>FingerC-2</Body>
+        <offsetfrom>FingerB-2</offsetfrom>
+        <limitsdeg>-55 43</limitsdeg>
+        <anchor> -0.10 0.16 0.05</anchor>
     </Joint>
+
+ 
 
 </KinBody>        
